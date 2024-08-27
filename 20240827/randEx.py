@@ -27,3 +27,15 @@ print("섞기 전:",items)
 random.shuffle(items)
 print("섞기 후:",items)
 
+num = 7
+
+str_num = str(num).zfill(3)
+print(str_num)
+
+
+str_num2 = str(num).zfill(2)
+print(str_num2)
+
+num2 = 1123
+num2 = str(num2).zfill(6)
+print(num2)

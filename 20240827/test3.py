@@ -51,10 +51,22 @@ areum3.setInfo("아름", 25, "여자")
 print(areum3)
 '''
 # 271
+import random as r
 class Account:
-    def __init__(self, name, accNum):
+    def __init__(self, name, accNum=0):
         self.name = name
         self.accNum = accNum
 
-    
+        num1 = r.randint(0,999)
+        num2 = r.randint(0,99)
+        num3 = r.randint(0,999999)
 
+        # zfill(width)
+        # - 문자열의 길이를 지정하고 데이터를 채운다 만약 부족한 길이는 0으로 채운다.
+        num1 = str(num1).zfill(3)
+        num2 = str(num2).zfill(2)
+        num3 = str(num3).zfill(6)
+        self.accNum = num1 + '-' + num2 + '-' + num3
+        print("계좌번호:", self.accNum)
+
+acc = Account("카카오은행")
