@@ -87,9 +87,42 @@ class Stock2:
         self.name = name
         self.code = code
 
+    # toString() 메서드랑 똑같다
+    # return 타입으로 str 타입으로 넘어가야하는데 print() 실행하고 문자열로 넘겨주는 리턴 타입이 맞지 않아서 에러
     def __str__(self):
-        print(self.name)
-        print(self.code)
+        return f"{self.name},{self.code}"
+
+    def set_name(self,name):
+        self.name = name
+
+    # 코드 수정하는 메서드
+    def set_code(self, code):
+        pass
 
 st = Stock2("삼성전자", "005930")
 print(st)
+
+st.set_name("현대")
+print(st)
+
+# 객체지향 언어 접근제한자 
+# public ,private 작성하지 않는다. 지원X
+class MyClass:
+    def __init__(self):
+        # 비공개!
+        self.__name = "private"
+
+    def getName(self):
+        return self.__name
+    
+my = MyClass()
+
+# print(my.name)
+# AttributeError: 'MyClass' object has no attribute 'name'
+# 예외 발생
+
+print(my.getName())
+
+# Protected 
+# 자신클래스와  상속한 자식클래스만 접근이 가능하도록! 
+# _변수명

@@ -1,3 +1,15 @@
+import pymysql
+
+# conn = pymysql.connect(host='localhost', user='root', password='1234', db='pythonTest', charset='utf8')
+# cur = conn.cursor()
+# cur.execute('''
+#  create table farm(
+#     kind varchar(10),
+#     name varchar(10)
+#  )
+#  '''
+#  )
+
 class Farm:
     def __init__(self, kind):
         self.kind = kind
@@ -5,29 +17,29 @@ class Farm:
     def __str__(self):
         return f"(kind: {self.kind})"
     
-class Fruit:
+class Fruit(Farm):
     def __init__(self, kind, name):
-        self.kind = kind
+        super().__init__(kind)
         self.name = name
 
     def __str__(self):
-        return f"(name: {self.name})"
+        return f"(kind: {self.kind}, name: {self.name})"
     
-class Vegetable:
+class Vegetable(Farm):
     def __init__(self, kind, name):
-        self.kind = kind
+        super().__init__(kind)
         self.name = name
 
     def __str__(self):
-        return f"(name: {self.name})"
+        return f"(kind: {self.kind}, name: {self.name})"
     
-class Nut:
+class Nut(Farm):
     def __init__(self, kind, name):
-        self.kind = kind
+        super().__init__(kind)
         self.name = name
 
     def __str__(self):
-        return f"(name: {self.name})"
+        return f"(kind: {self.kind}, name: {self.name})"
 
 farmList = []
 fruitList = []
@@ -37,6 +49,7 @@ dictFruit = {}
 dictVeget = {}
 dictNut = {}
 
+# 농작물 추가 메서드
 def addNewKind():
     print("1. 과일 / 2. 채소 / 3. 견과")
     sel = int(input("추가할 종류 번호: "))
@@ -45,15 +58,32 @@ def addNewKind():
 
     if sel == 1:
         fruit = Fruit("과일", name)
-        dictFruit = {"이름": fruit.name, "수량": amount}
+        dictFruit = {"종류": fruit.kind, "이름": fruit.name, "수량": amount}
+        print(dictFruit["종류"], dictFruit["이름"], dictFruit["수량"])
     elif sel == 2:
         vegetable = Vegetable("채소", name)
-        dictVeget = {"이름": vegetable.name, "수량": amount}
+        dictVeget = {"종류": vegetable.kind, "이름": vegetable.name, "수량": amount}
+        print(dictVeget["종류"], dictVeget["이름"], dictVeget["수량"])
     elif sel == 3:
         nut = Nut("견과", name)
-        dictNut = {"이름": nut.name, "수량": amount}
-
+        dictNut = {"종류": nut.kind, "이름": nut.name, "수량": amount}
+        print(dictNut["종류"], dictNut["이름"], dictNut["수량"])
     
+    if dictFruit != None:
+        farmList.append(dictFruit)
+        dictFruit = None
+    elif dictVeget != None:
+        farmList.append(dictVeget)
+        dictVeget = None
+
+    elif dictNut != None:
+        farmList.append(dictNut)
+        dictNut = None
+
+# 농작물 조회 메서드
+def printFarm():
+    for farm in farmList:
+        print(f'{farm["종류"]: farm["이름"](farm["수량"]개)}')
 
 while True:
     print("=" * 10, " 쌍용 마트 ", "=" * 10)
@@ -61,10 +91,10 @@ while True:
     print("1. 직원 메뉴")
     print("2. 손님 메뉴")
     print("9. 종료")
-    selNum = int(input("메뉴 번호 선택: "))
+    selNum = input("메뉴 번호 선택: ")
 
     if selNum.isdigit() :
-        int(selNum)
+        selNum = int(selNum)
     else :
         print("숫자로 다시 입력해주세요.")
         continue
@@ -77,19 +107,32 @@ while True:
             print("3. 수량 수정")
             print("4. 농산물 목록")
             print("9. 메인으로 돌아가기")
-            selNum1 = int(input("메뉴 번호 선택: "))
+            selNum1 = input("메뉴 번호 선택: ")
+
+            if selNum1.isdigit() :
+                selNum1 = int(selNum1)
+            else :
+                print("숫자로 다시 입력해주세요.")
+                continue
             
             if selNum1 == 1:
-                
-                break
+                addNewKind()
+                print("새 농작물이 추가되었습니다.")
+                continue
             elif selNum1 == 2:
                 
-                break
+                continue
+            elif selNum1 == 3:
+                
+                continue
+            elif selNum1 == 4:
+                print(farmList)
+                continue
             elif selNum1 == 9:
                 break
             else :
                 print("잘못 입력하였습니다. 다시 입력해주세요.")
-                break
+                continue
 
     elif selNum == 2:
         while True:
@@ -98,7 +141,13 @@ while True:
             print("2. 농산물 빼기")
             print("3. 구입한 농산물 보기")
             print("9. 메인으로 돌아가기")
-            selNum2 = int(input("메뉴 번호 선택: "))
+            selNum2 = input("메뉴 번호 선택: ")
+
+            if selNum2.isdigit() :
+                selNum2 = int(selNum2)
+            else :
+                print("숫자로 다시 입력해주세요.")
+                continue
             
             if selNum2 == 1:
                 
@@ -118,3 +167,6 @@ while True:
     else :
         print("잘못 입력하였습니다. 다시 입력해주세요.")
         break
+
+# conn.commit()
+# conn.close()
