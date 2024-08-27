@@ -53,6 +53,9 @@ print(areum3)
 # 271
 import random as r
 class Account:
+    # 클래스 변수
+    acc_count = 0
+
     def __init__(self, name, accNum=0):
         self.name = name
         self.accNum = accNum
@@ -69,4 +72,24 @@ class Account:
         self.accNum = num1 + '-' + num2 + '-' + num3
         print("계좌번호:", self.accNum)
 
+        # 클래스변수 증가
+        Account.acc_count += 1
+
 acc = Account("카카오은행")
+print("현재 계좌 개수:" , Account.acc_count,'개')
+
+# 261 ~ 264
+class Stock:
+    pass
+
+class Stock2:
+    def __init__(self, name, code):
+        self.name = name
+        self.code = code
+
+    def __str__(self):
+        print(self.name)
+        print(self.code)
+
+st = Stock2("삼성전자", "005930")
+print(st)
