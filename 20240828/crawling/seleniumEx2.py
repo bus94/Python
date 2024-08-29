@@ -1,4 +1,4 @@
-#seleniumEx2.py
+# seleniumEx2.py
 
 # 'http://ncov.kdca.go.kr'
 
