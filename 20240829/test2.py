@@ -1,32 +1,30 @@
 from tkinter import * 
 from tkinter.messagebox import showinfo
-import pymysql
+import mysql
 import tkinter.ttk
-
-conn = pymysql.connect(host='localhost', user='root', password='1234', db='guitest', charset='utf8')
-print(conn)
-cur = conn.cursor()
-def insertDB(id, name, email, year):
-    cur.execute(f"INSERT INTO guitest VALUES({id}, {name}, {email}, {year})")
-def selectDB():
-    cur.execute("SELECT * FROM guitest")
 
 def insert():
     id=entry.get()
     name=entry2.get()
     email=entry3.get()
     year=entry4.get()
-    result= insertDB(id,name,email,year)
-    if result > 0:
+    result= mysql.insertDB(id,name,email,year)
+   
+    if(result>0):
         showinfo('','입력성공')
     else:
         showinfo('','실패')
+
 def select():
     treeValueList=[]
-    treeValueList=selectDB()
-    print("treeValueList:", treeValueList)
+    treeValueList=mysql.selectDB()
+    if(treeview.get_children()):
+        print('값이 존재한다.')
+        treeview.delete(*treeview.get_children())
     for i in range(len(treeValueList)):
         treeview.insert("", "end", text="", values=treeValueList[i], iid=i)
+    
+   
         
     
 win= Tk()
@@ -74,6 +72,6 @@ treeview.heading("email", text="이메일", anchor="center")
 treeview.column("year", width=100, anchor="center")
 treeview.heading("year", text="출생연도", anchor="center")
  
-# 컬럼제목만
+# 컬럼제목만 보이게함
 treeview["show"] = "headings"
 win.mainloop()
