@@ -60,7 +60,7 @@ if len(title_link) != 0:
         
 # 첫 번째 링크 텍스트 가져오기
 title = soup.find_all('a', class_='title_link')[0].get_text()
-print(title)
+print(title) # 출력: 강아지 사과 먹어도 되나요,부작용과 좋은점은?
 
 # 첫 번째 이미지 url 가져오기
 imageUrl = soup.find_all('img')[2]['src']
